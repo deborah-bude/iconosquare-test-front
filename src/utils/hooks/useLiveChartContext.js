@@ -12,9 +12,13 @@ const initialData = {
 const liveChartReducer = (state, action) => {
     switch (action.type) {
         case 'new_event':
-			return {
-				events: [...state.events, action.payload]
-			}
+            return {
+                events: [...state.events, action.payload]
+            }
+        case 'pause':
+            return {
+                events: [...state.events]
+            }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         }
