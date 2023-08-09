@@ -21,9 +21,9 @@ const Content = () => {
 
     return (
         <div className="mx-auto max-w-7xl px-8">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => {
+            <button onClick={() => {
                 isPlayState((value) => !value)
-            }}>{isPlay ? "Pause" : 'Play'}</button>
+            }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">{isPlay ? "Pause" : 'Play'}</button>
             <LiveChart />
             <LiveTable />
         </div>

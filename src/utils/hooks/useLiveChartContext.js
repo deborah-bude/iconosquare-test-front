@@ -19,6 +19,10 @@ const liveChartReducer = (state, action) => {
             return {
                 events: [...state.events]
             }
+        case 'update_event':
+            return {
+                events: [...state.events]
+            }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         }
