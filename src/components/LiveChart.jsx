@@ -1,16 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 import { useLiveChartContext } from '../utils/hooks/useLiveChartContext';
 
 const LiveChart = () => {
-    const { data } = useLiveChartContext();
+    const { dispatch, data } = useLiveChartContext();
     const nbTotalEvents = data?.events?.length
     const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
+
+    const [valueEdit, setValueEdit] = useState("")
+    const [editValue, setValueModify] = useState(false)
+    const [indexCell, setIndexCell] = useState(0)
+
+    function sendValue () {
+        dispatch({
+            type: 'update_event',
+            payload: data,
+            index: indexCell,
+            newValue: valueEdit,
+            value: "value1"
+        })
+        setValueModify(false)
+    }
+
     return (
         <div className="mb-8">
+            {editValue &&
+                <div>
+                    <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="edit">Edit value 1</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" id="edit" name="Edit value" value={valueEdit} onChange={(e) => setValueEdit(e.target.value)}/>
+                    <button onClick={sendValue} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
+                </div>
+            }
             <ResponsiveContainer height={250}>
                 <AreaChart
-                    onClick={(e) => console.log(e.activeTooltipIndex)}
+                    onClick={(e) => {
+                        setValueModify(true)
+                        setValueEdit(e.activePayload[0].payload.value1)
+                        setIndexCell(e.activeLabel)
+                        console.log(e.activeTooltipIndex)
+                    }}
                     data={eventsFiltered}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                 >

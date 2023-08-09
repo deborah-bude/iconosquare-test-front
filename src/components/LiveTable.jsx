@@ -6,14 +6,17 @@ const LiveTable = props => {
     const { dispatch, data } = useLiveChartContext();
     const nbTotalEvents = data?.events?.length
     const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
-    const [valueEdit, valueEditState] = useState()
-    const [valueNumberEdit, valueNumberEditState] = useState()
-    const [indexCell, indexCellState] = useState(0)
+
+    const [editValue, setValueModify] = useState(false)
+    const [valueEdit, setValueEdit] = useState()
+    const [valueNumberEdit, setValueNumberEdit] = useState()
+    const [indexCell, setIndexCell] = useState(0)
 
     function updateValue(e, index) {
-        valueEditState(e.target.innerText)
-        valueNumberEditState(e.target.classList[0])
-        indexCellState(index)
+        setValueModify(true)
+        setValueEdit(e.target.innerText)
+        setValueNumberEdit(e.target.classList[0])
+        setIndexCell(index)
     }
 
     function sendValue() {
@@ -24,15 +27,18 @@ const LiveTable = props => {
             newValue: valueEdit,
             value: valueNumberEdit
         })
+        setValueModify(false)
     }
 
     return (
         <>
-            <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="edit">Edit value</label>
-                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" id="edit" name="Edit value" value={valueEdit} onChange={(e) => valueEditState(e.target.value)}/>
-                <button onClick={sendValue} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
-            </div>
+            {editValue &&
+                <div>
+                    <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="edit">Edit value</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" id="edit" name="Edit value" value={valueEdit} onChange={(e) => setValueEdit(e.target.value)}/>
+                    <button onClick={sendValue} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
+                </div>
+            }
             <div className="flex border border-gray-300 rounded">
                 <div>
                     <div className="p-2">Index</div>
