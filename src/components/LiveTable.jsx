@@ -7,19 +7,23 @@ const LiveTable = props => {
     const nbTotalEvents = data?.events?.length
     const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
     const [valueEdit, valueEditState] = useState()
-    //let newData = data.map()
+    const [valueNumberEdit, valueNumberEditState] = useState()
+    const [indexCell, indexCellState] = useState(0)
 
     function updateValue(e, index) {
         valueEditState(e.target.innerText)
-        const dataValue = e.target.classList
-        //const newValue= data[index].value1 = valueEdit
+        valueNumberEditState(e.target.classList[0])
+        indexCellState(index)
     }
 
     function sendValue() {
-        /*dispatch({
+        dispatch({
             type: 'update_event',
-            payload: createRandomEvent(data),
-        })*/
+            payload: data,
+            index: indexCell,
+            newValue: valueEdit,
+            value: valueNumberEdit
+        })
     }
 
     return (
@@ -38,8 +42,8 @@ const LiveTable = props => {
                 {eventsFiltered.map((event) => (
                     <div key={event.index} className="border-l border-gray-300 flex-1">
                         <div className="p-2">{event.index}</div>
-                        <div onClick={(e) => {updateValue(e, event.index)}} className="value-1 p-2 border-t border-gray-300">{event.value1}</div>
-                        <div onClick={(e) => {updateValue(e, event.index)}} className="value-2 p-2 border-t border-gray-300">{event.value2}</div>
+                        <div onClick={(e) => {updateValue(e, event.index)}} className="value1 p-2 border-t border-gray-300">{event.value1}</div>
+                        <div onClick={(e) => {updateValue(e, event.index)}} className="value2 p-2 border-t border-gray-300">{event.value2}</div>
                     </div>
                 ))}
             </div>

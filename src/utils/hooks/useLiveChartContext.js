@@ -20,6 +20,7 @@ const liveChartReducer = (state, action) => {
                 events: [...state.events]
             }
         case 'update_event':
+            state.events[action.index][action.value] = action.newValue
             return {
                 events: [...state.events]
             }
