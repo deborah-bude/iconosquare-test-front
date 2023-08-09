@@ -29,11 +29,15 @@ const LiveChart = () => {
                     <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="edit">Edit value 1</label>
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" id="edit" name="Edit value" value={valueEdit} onChange={(e) => setValueEdit(e.target.value)}/>
                     <button onClick={sendValue} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
+                    <button onClick={() => setValueModify(false)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Close</button>
                 </div>
             }
             <ResponsiveContainer height={250}>
                 <AreaChart
                     onClick={(e) => {
+                        if(e === null) {
+                            return
+                        }
                         setValueModify(true)
                         setValueEdit(e.activePayload[0].payload.value1)
                         setIndexCell(e.activeLabel)
