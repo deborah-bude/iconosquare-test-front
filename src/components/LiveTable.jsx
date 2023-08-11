@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { useLiveChartContext } from '../utils/hooks/useLiveChartContext';
 import {createRandomEvent} from "../utils/utils";
 
-const LiveTable = props => {
+const LiveTable = (eventsFiltered) => {
     const { dispatch, data } = useLiveChartContext();
-    const nbTotalEvents = data?.events?.length
-    const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
+    //const nbTotalEvents = data?.events?.length
+    //const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
 
     const [editValue, setValueModify] = useState(false)
     const [valueEdit, setValueEdit] = useState()
@@ -46,7 +46,7 @@ const LiveTable = props => {
                     <div className="p-2 border-t border-gray-300">Value 1</div>
                     <div className="p-2 border-t border-gray-300">Value 2</div>
                 </div>
-                {eventsFiltered.map((event) => (
+                {eventsFiltered.data.map((event) => (
                     <div key={event.index} className="border-l border-gray-300 flex-1">
                         <div className="p-2">{event.index}</div>
                         <div onClick={(e) => {updateValue(e, event.index)}} className="value1 p-2 border-t border-gray-300">{event.value1}</div>
