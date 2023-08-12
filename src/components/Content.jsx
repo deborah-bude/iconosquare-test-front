@@ -33,7 +33,7 @@ const Content = () => {
 
     function resetValue () {
         dispatch({
-            type: 'reset_all_events',
+            type: 'reset_modified_events',
         })
     }
 
