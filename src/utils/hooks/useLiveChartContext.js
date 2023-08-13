@@ -35,8 +35,11 @@ const liveChartReducer = (state, action) => {
             }
         case 'update_event':
             const index = state.events.findIndex((element) => element.index === action.index)
-            console.log(state.initialData)
-            state.events[index][action.value] = action.newValue
+            if (action.newValue === "") {
+                state.events[index][action.value] = 0
+            } else {
+                state.events[index][action.value] = parseInt(action.newValue)
+            }
             return {
                 events: [...state.events],
                 initialData: [...state.initialData],
